@@ -5,49 +5,29 @@
 ;;;;
 ;;;; Author: Moskvitin Andrey <archimag@gmail.com>
 
-;; http://code.google.com/p/cl-closure-template/
-(asdf:operate 'asdf:load-op '#:closure-template)
-
-;; http://common-lisp.net/project/parenscript/
-(asdf:operate 'asdf:load-op '#:parenscript)
-
-;; http://www.cliki.net/RESTAS
-(asdf:operate 'asdf:load-op '#:restas)
-
-;; http://common-lisp.net/project/cl-json/
-(asdf:operate 'asdf:load-op '#:cl-json)
+;;;; define RESTAS module
 
 (restas:define-module #:example.float-controls
-  (:use :cl))
-
-(restas:start '#:example.float-controls :port 8080)
+  (:use #:common-lisp
+        ;; using package (a.k.a. namespace) from the `float-controls.tmpl' file
+        #:example.float-controls.view))
 
 (in-package #:example.float-controls)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; params
+;;; pathname parameters
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *dir* 
-  (merge-pathnames "example/float-controls/"
+(defparameter *top-dir*
+  (merge-pathnames "example/"
                    (asdf:component-pathname (asdf:find-system '#:closure-template)))
+  "closure-template example's directory")
+
+(defparameter *dir* (merge-pathnames "float-controls/" *top-dir*)
   "float-controls directory")
 
-(defparameter *jquery-dir*
-  (merge-pathnames "example/jquery/"
-                   (asdf:component-pathname (asdf:find-system '#:closure-template)))
+(defparameter *jquery-dir* (merge-pathnames "jquery/" *top-dir*)
   "JQuery directory")
-
-(defparameter *template-path* (merge-pathnames "float-controls.tmpl" *dir*)
-  "Path to file with tempaltes")
-
-;;;; template compilation
-
-(closure-template:compile-template :common-lisp-backend *template-path*)
-
-(defparameter *js-templates*
-  (closure-template:compile-template :javascript-backend *template-path*)
-  "Compile templates to JavaScript")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; model
@@ -87,12 +67,8 @@
 
 (define-route templates.js ("resources/templates.js"
                             :content-type "text/javascript")
-  *js-templates*)
-
-(define-route main (""
-                    :render-method 'example.float-controls.view:page)
-  (list :name (name-to-json)
-        :email (email-to-json)))
+  ;; this variable from a *.view package contain JS-code which was generetad by template-file
+  *js-template*)
 
 (define-route save-name ("api/name" 
                          :method :post 
@@ -109,3 +85,12 @@
   (setf *email*
         (hunchentoot:post-parameter "value"))
   (email-to-json))
+
+(define-route main (""
+                    :render-method 'example.float-controls.view:page)
+  (list :name (name-to-json)
+        :email (email-to-json)))
+
+;;;; start the site
+
+(restas:start '#:example.float-controls :port 8080)

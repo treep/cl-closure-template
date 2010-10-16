@@ -1,0 +1,15 @@
+
+  FLOAT-CONTROLS example for CL-CLOSURE-TEMPLATES
+
+  ----------
+
+    Make symlink for `float-controls.asd' or push current directory to ASDF's
+  central registry and type:
+
+    (asdf:operate 'asdf:load-op :float-controls)
+
+  or for SBCL:
+
+    (require :float-controls)
+
+  then see to http://localhost:8080.
