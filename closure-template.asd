@@ -23,7 +23,8 @@
                                      (:file "translate" :depends-on ("template"))
                                      (:file "escape" :depends-on ("packages"))
                                      (:file "common-lisp-backend" :depends-on ("translate" "escape"))
-                                     (:file "standard-templates" :depends-on ("common-lisp-backend"))))))
+                                     (:file "standard-templates" :depends-on ("common-lisp-backend"))
+                                     (:file "asdf" :depends-on ("packages" "common-lisp-backend"))))))
 
 (defmethod perform ((o test-op) (c (eql (find-system 'closure-template))))
   (operate 'load-op 'closure-template-test)
