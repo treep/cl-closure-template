@@ -43,7 +43,7 @@ EObject.prototype.startEdit = function () {
     $('.cancel:first', this.node).click(function (evt) { obj.endEdit(); });
 
     this.node.ajaxForm({
-        dataType: 'json', 
+        dataType: 'json',
         success: function (data) { obj.endEdit(data)},
         error: function () { alert("Не удалось сохранить данные"); obj.endEdit() }
     });
@@ -73,7 +73,7 @@ EditableText.prototype.constructor = EditableText;
 EditableText.prototype.toHTML = example.floatControls.view.editableText;
 
 EditableText.prototype.editForm = example.floatControls.view.editText;
-    
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * init
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

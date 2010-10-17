@@ -19,16 +19,16 @@ Sample Code
         {/if}
     {/template}")
     *TEMPLATE*
-   
-   
+
+
     CL-USER> (closure-template:compile-template :common-lisp-backend *template*)
     CLOSURE-TEMPLATE.EXAMPLE:HELLO-NAME
     CL-USER> (closure-template.example:hello-name '(:name "Andrey"))
     "  Hello Andrey! "
     CL-USER> (closure-template.example:hello-name '(:name "Andrey" :greeting-world "Hi"))
     "  Hi Andrey! "
-    
-    
+
+
     CL-USER> (closure-template:compile-template :javascript-backend *template*)
     "if (typeof ClosureTemplate == 'undefined') {
          var ClosureTemplate = {  };

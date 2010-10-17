@@ -48,4 +48,3 @@ $(document).ready(function () {
     $('.showmsg').click(showDetailMsg);
     $('#createmsg').click(showCreateForm);
 });
-

@@ -135,7 +135,7 @@
 
 (defun print-tag-post-handler (obj)
   (or (ppcre:register-groups-bind (expr directives) ("^{(?:print\\s+)?([^\\|]+)((?:\\s*\\|\\s*[\\w:]*)*)\\s*}$" (second obj))
-        (list* (car obj)              
+        (list* (car obj)
                (parse-expr-or-discard expr)
                (alexandria:alist-plist
                 (iter (for directive in (cdr (split-sequence:split-sequence #\| directives)))
@@ -275,7 +275,7 @@
 (defun parse-foreach-attributes (str)
   (or (ppcre:register-groups-bind (loop-var list-var) ("^{foreach\\s+([^\\s}]+)\\s*in\\s*([^\\s}]+)\\s*}$" str)
         (list (check-simple-variable (parse-expr-or-discard loop-var))
-              (parse-expr-or-discard list-var))) 
+              (parse-expr-or-discard list-var)))
       (discard-parse-element)))
 
 (defun foreach-post-handler (item)
@@ -435,7 +435,7 @@
           (find obj *substitions*)) (substition-to-string obj))
     (t obj)))
 
-     
+
 (defun concat-neighboring-strings (obj)
   (if (consp obj)
       (iter (for x on obj)
@@ -461,7 +461,7 @@
   (list* (first obj)
          (second obj)
          (concat-neighboring-strings (remove-substition (remove-whitespaces (cddr obj))))))
-  
+
 
 (defmethod wiki-parser:parse ((markup (eql :closure-template.parser)) (obj string))
   (simplify-template
@@ -477,7 +477,6 @@
      (list* 'namespace
             namespace
             templates))))
-           
+
 (defun parse-template (obj)
   (wiki-parser:parse :closure-template.parser obj))
-

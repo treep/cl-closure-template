@@ -4,7 +4,7 @@
 ;;;; See file COPYING for details.
 ;;;;
 ;;;; This is modified version of the AIMA source code (path/to/aima/logic/algorithms/infix.lisp)
-;;;; 
+;;;;
 ;;;; Author: Peter Norvig
 ;;;; Author: Moskvitin Andrey
 
@@ -26,7 +26,7 @@
 (defun arg2 (exp) "Second argument" (second (args exp)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Tokenization: convert a string to a sequence of tokens      
+;;;; Tokenization: convert a string to a sequence of tokens
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *possible-functions*
@@ -41,10 +41,10 @@
 
 (defun lispify-string (str)
   (coerce (iter (for ch in-string str)
-		(when (upper-case-p ch)
-		  (collect #\-))
-		(collect (char-upcase ch)))
-	  'string))
+                (when (upper-case-p ch)
+                  (collect #\-))
+                (collect (char-upcase ch)))
+          'string))
 
 (defun lispify-name (str)
   (intern (lispify-string str) :keyword))
@@ -128,7 +128,7 @@
   (multiple-value-bind (token i) (parse-infix-token string start)
     (cond ((null token) nil)
           ((null i) (list token))
-          (t (cons token (string->infix string i))))))            
+          (t (cons token (string->infix string i))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Convert infix to prefix notation
@@ -139,8 +139,8 @@
     (|(| nil match |)|)
     ([ nil match ])
     ))
-  
-(defparameter *infix-ops* 
+
+(defparameter *infix-ops*
   '((*) (/) (% rem)
     (+) (-)
     (<) (>) (<=) (>=)
@@ -160,10 +160,10 @@
   "Convert an infix expression to prefix."
   (when (stringp infix) (setf infix (string->infix infix)))
   ;; INFIX is a list of elements; each one is in prefix notation.
-  ;; Keep reducing (most tightly bound first) until there is only one 
+  ;; Keep reducing (most tightly bound first) until there is only one
   ;; element left in the list.  Example: In two reductions we go:
   ;; (a + b * c) => (a + (* b c)) => ((+ a (* b c)))ppp
-  (loop 
+  (loop
     (when (not (> (length infix) 1)) (RETURN (first infix)))
     (setf infix (reduce-infix infix))))
 
@@ -182,16 +182,16 @@
    ;; ()
    (let ((pos (position '|(| infix :from-end t)))
      (if pos
-         (reduce-matching-op '(|(| nil match |)|) 
+         (reduce-matching-op '(|(| nil match |)|)
                              pos
                              infix)))
    ;; []
    (let ((pos (position '|[| infix :from-end nil)))
      (if pos
-         (reduce-matching-op '([ nil match ]) 
+         (reduce-matching-op '([ nil match ])
                              pos
                              infix)))
-   ;; .x 
+   ;; .x
    (let* ((pos (position-if #'(lambda (i) (and (consp i) (eql (car i) :dot))) infix))
           (op (if pos (elt infix pos))))
      (if (and pos
@@ -224,17 +224,17 @@
                   (assoc (elt infix pos) *infix-ops*))))
      (if pos
          (case (op-type op)
-           (UNARY (replace-subseq infix pos 2 
-                                  (list (op-name op) 
+           (UNARY (replace-subseq infix pos 2
+                                  (list (op-name op)
                                         (elt infix (+ pos 1)))))
            (BINARY (replace-subseq infix (- pos 1) 3
                                    (list (op-name op)
-                                         (elt infix (- pos 1)) 
+                                         (elt infix (- pos 1))
                                          (elt infix (+ pos 1))))))))
    ;; bad expression
    (bad-expression "Bad syntax for infix expression: ~S" infix)))
 
-(defun function-symbol-p (x) 
+(defun function-symbol-p (x)
   (and (symbolp x) (not (member x '(and or not ||)))
        (alphanumericp (char (string x) 0))))
 
@@ -256,7 +256,7 @@
            (replace-subseq infix (- pos 1) (+ len 1)
                            (list* 'elt (elt infix (- pos 1)) inside-parens)))
           ((not (eq (op-name op) '|(|)) ;; handle  [a,b]
-           (replace-subseq infix pos len 
+           (replace-subseq infix pos len
                            (cons 'list inside-parens))) ; {set}
           ((and (> pos 0) ;; handle f(a,b)
                 (function-symbol-p (elt infix (- pos 1))))
@@ -265,7 +265,7 @@
           (t ;; handle (a + b)
            (assert (= (length inside-parens) 1))
            (replace-subseq infix pos len (first inside-parens))))))
-                   
+
 (defun remove-commas (exp)
   "Convert (|,| a b) to (a b)."
   (cond ((eq (op exp) '|,|) (nconc (remove-commas (arg1 exp) )

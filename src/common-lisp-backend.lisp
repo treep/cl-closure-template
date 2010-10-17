@@ -120,7 +120,7 @@
     (translate-item backend
                   (cdr args))))
 
-(defun has-data-used-p (body) 
+(defun has-data-used-p (body)
   (cond
     ((and (consp body)
           (eql (car body) 'has-data)) t)
@@ -167,7 +167,7 @@
                                    `(let ((,var (assoc ',s *loops-vars*)))
                                       (= (second ,var)
                                          (third ,var))))))
-           (with-template-output 
+           (with-template-output
              ,body))))))
 
 (defmethod translate-named-item ((backend common-lisp-backend) (item (eql 'closure-template.parser:foreach)) args)
@@ -219,7 +219,7 @@
          (clauses (iter (for clause in (cddr args))
                         (collect `((find ,case-var (list ,@(first clause)) :test #'equal) ,(translate-item backend
                                                                                                            (cdr clause)))))))
-           
+
     `(let ((,case-var ,(translate-expression backend
                                              (first args))))
        (cond

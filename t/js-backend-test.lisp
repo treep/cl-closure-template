@@ -31,7 +31,7 @@
                                                    (plist->ps (if (consp (third origin)) 
                                                                   (second (third origin))
                                                                   (third origin)))))
-     
+
     ((consp origin) (iter (for item in origin)
                           (collect (test-code->ps item))))
     (t origin)))

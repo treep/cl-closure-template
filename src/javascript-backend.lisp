@@ -62,13 +62,13 @@
                          (make-symbol (symbol-name (second expr)))
                          `(ps:@ $data$ ,(make-symbol (string-upcase (second expr))))))
           (getf `(,@(let ((tr (translate-expression backend
-						    (second expr))))
-			 (cond ((symbolp tr) (list 'ps:@ tr))
-			       ((and (listp tr)
-			 	     (eql (car tr) 'ps:@))
-			 	tr)
-			       (t (list* 'ps:@ tr))))
-		    ,(make-symbol (string-upcase (third expr)))))
+                                                    (second expr))))
+                         (cond ((symbolp tr) (list 'ps:@ tr))
+                               ((and (listp tr)
+                                     (eql (car tr) 'ps:@))
+                                tr)
+                               (t (list* 'ps:@ tr))))
+                    ,(make-symbol (string-upcase (third expr)))))
           (otherwise (cons (or (find-symbol (symbol-name key)
                                             '#:closure-template)
                                (error "Bad keyword ~A" key))
@@ -121,11 +121,11 @@
                         `(if ,digits-after-point
                              (let ((factor (expt 10.0 ,digits-after-point)))
                                (/ (round (* ,number factor)) factor))
-                             (round ,number))))             
+                             (round ,number))))
              ,body)
            $template-output$))))
 
-  
+
 (defmethod translate-named-item ((backend javascript-backend) (item (eql 'closure-template.parser:foreach)) args)
   (let* ((loop-var (make-symbol (string-upcase (second (first (first args))))))
          (*local-variables* (cons loop-var

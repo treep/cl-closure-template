@@ -241,20 +241,20 @@ Hello world{/template}")
 (addtest (common-lisp-backend-test)
   local-vars-1
   (ensure-same "56"
-	       (progn
-		 (compile-template :common-lisp-backend
-				   "{template local}{foreach $b in $c}{$b.d}{/foreach}{/template}")
-		 (template-call "LOCAL"
-				'(:c ((:d 5) (:d 6)))))))
+               (progn
+                 (compile-template :common-lisp-backend
+                                   "{template local}{foreach $b in $c}{$b.d}{/foreach}{/template}")
+                 (template-call "LOCAL"
+                                '(:c ((:d 5) (:d 6)))))))
 
 (addtest (common-lisp-backend-test)
   local-vars-2
   (ensure-same "56"
-	       (progn
-		 (compile-template :common-lisp-backend
-				   "{template local}{foreach $b in $c}{$b.d.a}{/foreach}{/template}")
-		 (template-call "LOCAL"
-				'(:c ((:d (:a 5)) (:d (:a 6))))))))
+               (progn
+                 (compile-template :common-lisp-backend
+                                   "{template local}{foreach $b in $c}{$b.d.a}{/foreach}{/template}")
+                 (template-call "LOCAL"
+                                '(:c ((:d (:a 5)) (:d (:a 6))))))))
 
 ;;;; if
 
@@ -306,7 +306,7 @@ Hello world{/template}")
                  (list (template-call "TEST"
                                       '(:var 0))
                        (template-call "TEST"
-                                      '(:var "Hello"))                       
+                                      '(:var "Hello"))
                        (template-call "TEST"
                                       nil)
                        (template-call "TEST"
@@ -321,12 +321,12 @@ Hello world{/template}")
                  (list (template-call "TEST"
                                       '(:var 0))
                        (template-call "TEST"
-                                      '(:var "Hello"))                       
+                                      '(:var "Hello"))
                        (template-call "TEST"
                                       nil)
                        (template-call "TEST"
                                       '(:var 2))))))
-               
+
 ;;;; foreach
 
 (addtest (common-lisp-backend-test)

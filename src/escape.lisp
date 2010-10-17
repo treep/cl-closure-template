@@ -30,7 +30,7 @@
                   (iter (for octet in-vector (babel:string-to-octets (string ch) :encoding :utf-8))
                           (format out "%~2,'0x" octet)))))
       str))
-  
+
 
 (defun encode-uri (str)
   (encode-string str "~!@#$&*()=:/,;?+'"))
@@ -40,7 +40,7 @@
 
 
 (defun decode-uri (string)
-  "Replaces each escape sequence in the encoded URI with the character 
+  "Replaces each escape sequence in the encoded URI with the character
 that it represents."
   (let ((curpos 0)
         (maxpos (length string))

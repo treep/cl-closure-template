@@ -70,8 +70,8 @@
   ;; this variable from a *.view package contain JS-code which was generetad by template-file
   *js-template*)
 
-(define-route save-name ("api/name" 
-                         :method :post 
+(define-route save-name ("api/name"
+                         :method :post
                          :content-type "application/json"
                          :render-method #'json:encode-json-plist-to-string)
   (setf *name*

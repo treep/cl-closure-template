@@ -28,7 +28,7 @@
 ;;; params
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *dir* 
+(defparameter *dir*
   (merge-pathnames "example/messages/"
                    (asdf:component-pathname (asdf:find-system '#:closure-template)))
   "Messages directory")

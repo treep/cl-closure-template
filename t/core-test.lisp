@@ -278,27 +278,27 @@
 
 (addtest (template-parser-test)
   print-2
-  (ensure-same '(closure-template.parser:template ("test") 
+  (ensure-same '(closure-template.parser:template ("test")
                  (closure-template.parser:print-tag (+ 2 2)))
                (parse-single-template "{template test}{2 + 2}{/template}")))
 
 (addtest (template-parser-test)
   print-3
-  (ensure-same '(closure-template.parser:template ("test") 
+  (ensure-same '(closure-template.parser:template ("test")
                  (closure-template.parser:print-tag (+ 2 2)
                   :no-autoescape t))
                (parse-single-template "{template test}{2 + 2 |noAutoescape}{/template}")))
 
 (addtest (template-parser-test)
   print-4
-  (ensure-same '(closure-template.parser:template ("test") 
+  (ensure-same '(closure-template.parser:template ("test")
                  (closure-template.parser:print-tag (+ 2 2)
                   :id t))
                (parse-single-template "{template test}{2 + 2 |id}{/template}")))
 
 (addtest (template-parser-test)
   print-5
-  (ensure-same '(closure-template.parser:template ("test") 
+  (ensure-same '(closure-template.parser:template ("test")
                  (closure-template.parser:print-tag (+ 2 2)
                   :no-autoescape t
                   :id t
@@ -310,7 +310,7 @@
 
 (addtest (template-parser-test)
   print-6
-  (ensure-same '(closure-template.parser:template ("test") 
+  (ensure-same '(closure-template.parser:template ("test")
                  (closure-template.parser:print-tag (+ 2 2)
                   :no-autoescape t
                   :id t
@@ -325,7 +325,7 @@
 
 (addtest (template-parser-test)
   literal-1
-  (ensure-same '(closure-template.parser:template ("literal-test") 
+  (ensure-same '(closure-template.parser:template ("literal-test")
                  (closure-template.parser:literal "Test {$x} {foreach $foo in $bar}{$foo}{/foreach}"))
                (parse-single-template "{template literal-test}{literal}Test {$x} {foreach $foo in $bar}{$foo}{/foreach}{/literal}{/template}")))
 
@@ -470,4 +470,3 @@
    World
 {/literal}
 {/template}")))
-
