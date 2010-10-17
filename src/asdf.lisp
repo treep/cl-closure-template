@@ -16,8 +16,8 @@
       :accessor js-template-of
       :type     (or symbol null)))
     (:documentation
-     "This ASDF component defines COMPILE-OP and LOAD-SOURCE-OP operations that
-take care of calling COMPILE-TEMPLATE on TEMPLATE-FILE component.")))
+     "This ASDF component defines COMPILE-OP and LOAD-OP operations that take
+care of calling COMPILE-TEMPLATE on TEMPLATE-FILE component.")))
 
 ;;; we say that the `asdf::template-file' class is synonym for the
 ;;; `closure-template::template-file' class
